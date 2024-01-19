@@ -15,4 +15,15 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  settings: {
+    "import/extensions": [".tsx", ".ts", ".jsx", ".js"],
+    "import/resolver": {
+      alias: {
+        map: [
+          ["@", "./src"]
+        ],
+        extensions: [".tsx", ".ts", ".jsx", ".js"]
+      }
+    }
+  },
 }
