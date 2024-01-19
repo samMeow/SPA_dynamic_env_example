@@ -1,30 +1,40 @@
-# React + TypeScript + Vite
+# SPA dynamic environment in runtime
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TL;DR This repository aims to provide vite + webpack example on how to serve environment variables using es6 module in browser runtime.  
+So developer can easily swap environment variables without building again, or using other API / global variables in window.
 
-Currently, two official plugins are available:
+## Background
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Frontend deployment usually involve generating static assets and placing them into file server like S3, GCP bucket, nginx, etc.  
+SPA (Single Page Application) and SSG (Static Site Generation) nowadays got tools to pack environment variables into static assets,  
+but didn't explicitly provide a way to inject env var after built.  
+Over years, developer may seek different ways, e.g. using an API endpoint which calls at application start time,  
+regex replace placeholder text, expose env variables to global with Object.freeze.  
+These methods may not be feasible depends on hosting and pipeline setup, thus, with aid of ES module, a relatively convenient way is presented in this repository.
 
-## Expanding the ESLint configuration
+## Getting start
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Prerequisite
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+Node JS >= 20
+NPM >= 10
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### List of commands
+
+```sh
+# Starting local development
+npm run start:vite
+
+# Building local assets
+npm run build:vite
+
+# Serving local assets
+npx serve dist
+
+# Recommend way of creating env.js
+echo "export default" > /dist/env.js
+node -e 'console.log(Object.fromEntries(Object.entries(process.env).filter(o => o[0].startsWith("VITE_"))))' >> dist/env.js
+
+```
