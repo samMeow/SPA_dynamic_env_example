@@ -26,9 +26,11 @@ NPM >= 10
 ```sh
 # Starting local development
 npm run start:vite
+npm run start:webpack
 
 # Building local assets
 npm run build:vite
+npm run build:webpack
 
 # Serving local assets
 npx serve dist
@@ -36,5 +38,6 @@ npx serve dist
 # Recommend way of creating env.js
 echo "export default" > /dist/env.js
 node -e 'console.log(Object.fromEntries(Object.entries(process.env).filter(o => o[0].startsWith("VITE_"))))' >> dist/env.js
+# Although this project directly include env.js in public/ folder and copy for demo purpose
 
 ```

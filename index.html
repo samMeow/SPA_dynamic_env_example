@@ -8,6 +8,9 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- As webpack never had this variable so vite script never read -->
+    <% if (process.env.VITE) { %>
     <script type="module" src="/src/main.tsx"></script>
+    <% } %>
   </body>
 </html>
