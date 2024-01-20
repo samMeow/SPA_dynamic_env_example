@@ -70,8 +70,7 @@ export default (_, { mode }) => ({
   plugins: [
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(process.env),
-      'import.meta.env': JSON.stringify(env)
+      'process.env': JSON.stringify(env),
     }),
     new HtmlWebpackPlugin({
       template: path.resolve('index.html'),
