@@ -24,6 +24,8 @@ However, currently it is only supported by chrome, so this demo is using js as e
 
 ## Getting start
 
+Before stating local server, please copy `.env.example` as `.env` in project directory.
+
 ### Prerequisite
 
 ```
